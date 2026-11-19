@@ -1,0 +1,19 @@
+{
+  "name": "devine-moi",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Devine-moi : deux jeux de lettres par jour, le mot du jour et le mot brouillé. Android, hors ligne.",
+  "license": "MIT",
+  "author": "Pierre Gallaz",
+  "scripts": {
+    "test": "node --test tests/*.test.js && python3 tools/build_words.py --selftest",
+    "build": "./build.sh"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
+    "@capacitor/share": "^8.0.3"
+  }
+}

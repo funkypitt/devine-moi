@@ -1,0 +1,7 @@
+{
+  "appId": "com.freedomfighter.devinemoi",
+  "appName": "Devine-moi",
+  "webDir": "www",
+  "server": { "androidScheme": "https" },
+  "android": { "backgroundColor": "#0c1430" }
+}

@@ -1,0 +1,9 @@
+Two word games in French, new every day at midnight, the same for everyone.
+
+The word of the day: find the five-letter word in six tries. Green means the right letter in the right place, amber means the letter is elsewhere in the word, grey means it is not in the word. Every dictionary word is accepted as a guess.
+
+The scrambled word: put the letters back in order. You start with a four-letter word; each word found brings one more letter and asks for a longer word, up to eight letters, then a nine-letter bonus word. You may shuffle the letters or ask for a hint.
+
+The words to find are everyday French words, carefully chosen. Accents do not matter.
+
+Streaks and statistics for each game, unlimited practice with 5, 6 or 7-letter words, hard mode, high-contrast mode, result sharing without spoilers, and a link to each word's definition. Works offline, asks for no permission. No ads, no account, no tracking. The interface is in French.

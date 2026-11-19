@@ -1,0 +1,48 @@
+/* Le mot brouillé du jour. Uses the plaques (.dm-tile) and --dm-* tokens of devine-ui.css. */
+.br{flex:1;min-height:0;display:flex;flex-direction:column}
+.br[hidden]{display:none}
+.br-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:6px 12px}
+
+/* the ladder: one row per word, each a letter longer than the one above */
+.br-ladder{--tile:48px;display:flex;flex-direction:column;align-items:center;gap:7px;user-select:none;-webkit-user-select:none}
+.br-row{display:flex;gap:5px}
+.br-row .dm-tile{flex:none}
+.br-later{opacity:.45}
+button.dm-tile{border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.br-cur .dm-tile:not([data-state]){box-shadow:inset 0 0 0 1.5px rgba(238,241,236,.34),inset 0 2px 6px rgba(0,0,0,.35)}
+.br-slot.br-lock{cursor:default}
+
+/* the letters to place; a letter already placed leaves its hole, so the others never move */
+.br-cap{text-align:center;font-size:.95rem;font-weight:600;color:var(--ink-2);padding:2px 16px 10px;min-height:1.6em}
+.br-cap[hidden],.br-tray[hidden]{display:none}
+.br-tray{--tile:54px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 auto 14px;max-width:100%}
+.br-t.br-used{opacity:.13;cursor:default;box-shadow:inset 0 0 0 1.5px var(--dm-slot-line);background:var(--dm-slot)}
+.br-t.br-used>span{visibility:hidden}
+.br-t.br-used::after{display:none}
+.br-t:not(.br-used):active{transform:scale(.93)}
+
+.br-tools{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:0 10px 10px;min-height:38px}
+.br-tools button{border:0;border-radius:999px;padding:9px 16px;font:600 .9rem system-ui,sans-serif;color:var(--ink,#eee);background:rgba(238,241,236,.09);cursor:pointer}
+.br-tools button:active{transform:scale(.96)}
+.br-next{font-size:.9rem;color:var(--ink-2)}
+.br-next b{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:650}
+
+/* result sheet: the words, each a link to its definition */
+.br-sol{display:grid;gap:4px;font-size:.9rem}
+.br-sol div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 2px;border-bottom:1px solid rgba(238,241,236,.08)}
+.br-sol span{color:var(--ink-2)}
+.br-sol a{font:700 1rem "DM Plaque",Georgia,serif;letter-spacing:.06em;color:var(--ink);text-underline-offset:3px;text-decoration-color:rgba(238,241,236,.35)}
+
+/* home card art: three steps of the ladder */
+.br-home-art{display:flex;flex-direction:column;align-items:center;gap:4px;flex:none}
+.br-home-art span{display:flex;gap:4px}
+.br-home-art i{width:16px;height:16px;border-radius:4px;background:rgba(12,20,48,.45);box-shadow:inset 0 0 0 1px rgba(238,241,236,.22)}
+.br-home-art i.on,.done .br-home-art i{background:var(--dm-correct-hi);box-shadow:none}
+
+/* three games: tighter tabs and home plaques so everything holds on a small phone */
+body.has-home #modes button{padding:13px 4px;font-size:.98rem;white-space:nowrap}
+.at-home #home{gap:14px;justify-content:safe center;overflow-y:auto}
+.home-card{min-height:112px;padding:16px 20px;flex:none}
+.home-text b{font-size:1.6rem}
+@media (max-width:380px){ body.has-home #modes button{font-size:.88rem} }
+@media (max-height:700px){ .home-card{min-height:92px;padding:12px 18px} .home-text{gap:5px} }

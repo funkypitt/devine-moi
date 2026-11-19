@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0c1430">
+<title>Devine-moi</title>
+<link rel="preload" href="fonts/Fraunces-tile.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="devine-ui.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="brouille.css">
+</head>
+<body>
+<div id="app">
+  <header id="top">
+    <div class="plaque" id="plaque" aria-live="polite">
+      <span class="plaque-num" id="plaque-num"></span>
+      <span class="plaque-name">Devine-moi</span>
+    </div>
+    <nav class="top-actions">
+      <button class="icon-btn" id="btn-help" aria-label="Comment jouer"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.8"/><circle cx="12" cy="17.2" r=".6" class="fill"/></svg></button>
+      <button class="icon-btn" id="btn-stats" aria-label="Statistiques"><svg viewBox="0 0 24 24"><path d="M5 20V11M12 20V5M19 20v-6"/></svg></button>
+      <button class="icon-btn" id="btn-settings" aria-label="Réglages"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button>
+      <button class="icon-btn" id="btn-music" aria-label="Musique"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/><path class="mute" d="M3 3l18 18"/></svg></button>
+    </nav>
+  </header>
+  <p id="subline"></p>
+  <main id="stage">
+    <div id="board-host"></div>
+  </main>
+  <div id="strip" hidden>
+    <span id="strip-text"></span>
+    <button class="link-btn" id="strip-btn">Voir le résultat</button>
+  </div>
+  <div id="modes" role="tablist" aria-label="Mode de jeu">
+    <button role="tab" id="tab-daily" aria-selected="true">Mot du jour</button>
+    <button role="tab" id="tab-train" aria-selected="false">Entraînement</button>
+  </div>
+  <div id="kbd-host"></div>
+</div>
+
+<div id="veil" hidden></div>
+<section id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="sheet-grip" aria-hidden="true"></div>
+  <button class="sheet-close" id="sheet-close" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div id="sheet-body"></div>
+</section>
+
+<div id="newday" hidden><span>Un nouveau mot est arrivé.</span><button class="link-btn" id="newday-btn">Jouer</button></div>
+
+<script src="words-fr.js"></script>
+<script src="devine-core.js"></script>
+<script src="devine-ui.js"></script>
+<script src="snd.js"></script>
+<script src="brouille-data.js"></script>
+<script src="brouille.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
