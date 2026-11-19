@@ -1,0 +1,24 @@
+Deux jeux de lettres en français, nouveaux chaque jour à minuit, les mêmes pour tout le monde.
+
+LE MOT DU JOUR
+Un mot de cinq lettres à trouver en six essais. Après chaque essai, les lettres se colorent : vert si la lettre est à la bonne place, ambre si elle est dans le mot mais ailleurs, gris si elle n'y est pas. Tous les mots du dictionnaire sont acceptés comme essais, conjugaisons comprises.
+
+LE MOT BROUILLÉ
+Des lettres en désordre à remettre dans l'ordre. On part d'un mot de quatre lettres ; à chaque mot trouvé, une lettre de plus arrive et il faut un mot plus long, jusqu'à huit lettres. Un mot bonus de neuf lettres attend ceux qui en veulent encore. Deux aides : mélanger les lettres, ou demander un indice.
+
+Les mots à trouver sont choisis avec soin : des mots courants du français, sans noms propres ni grossièretés. Les accents ne comptent pas.
+
+- Séries, records et statistiques pour chaque jeu
+- Un entraînement illimité au mot du jour, avec des mots de 5, 6 ou 7 lettres
+- Un mode difficile et un mode contraste élevé pour les daltoniens
+- Un clavier AZERTY, QWERTZ ou QWERTY, choisi selon la langue de l’appareil (QWERTZ en Suisse romande)
+- Le partage du résultat sans dévoiler les mots
+- La définition des mots sur le Wiktionnaire en fin de partie
+- Des sons soignés et une musique calme, que l'on peut couper
+
+L'app fonctionne sans connexion et ne demande aucune autorisation. Sans publicité, sans compte, sans pistage.
+
+Mots et échelles de lettres : Lexique 3.83 (CC BY-SA 4.0) et Dicollecte (MPL 2.0). Sons : Kenney (CC0). Musique : omfgdude (CC0). Police : Fraunces (OFL).
+
+
+Pierre Gallaz · développé avec Claude Code

@@ -1,0 +1,75 @@
+# Codemagic: the iOS edition (Capacitor). The Android app is built locally (build.sh).
+# www/ and the native "public" copy are not committed: they are assembled here as in build.sh.
+workflows:
+  # ── iOS: build, sign, upload to App Store Connect ──
+  ios-release:
+    name: iOS Release
+    max_build_duration: 30
+    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: codemagic
+    environment:
+      node: 22
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.freedomfighter.devinemoi
+    scripts:
+      - name: Tests and web app
+        script: |
+          set -e
+          npm ci
+          node --test tests/*.test.js
+          rm -rf www && mkdir -p www
+          cp index.html styles.css devine-ui.css brouille.css app.js devine-core.js devine-ui.js snd.js words-fr.js brouille-data.js brouille.js www/
+          cp -r audio fonts www/
+      - name: Sync into the iOS project (Capacitor 8 uses Swift Package Manager, no CocoaPods)
+        script: npx cap sync ios
+      - name: Set up code signing
+        script: xcode-project use-profiles
+      - name: Build IPA
+        script: |
+          xcode-project build-ipa \
+            --project ios/App/App.xcodeproj \
+            --scheme App
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false  # upload only
+
+  # One-off helper: registers the bundle id at Apple and creates its App Store
+  # provisioning profile, signed with the distribution certificate Codemagic holds.
+  # Then: Settings → Code signing identities → iOS provisioning profiles →
+  # Fetch profiles → tick the new one.
+  apple-profiles:
+    name: "Apple: bundle id and App Store profile"
+    max_build_duration: 10
+    instance_type: linux_x2
+    integrations:
+      app_store_connect: codemagic
+    environment:
+      vars:
+        BUNDLE_ID: "com.freedomfighter.devinemoi"
+        BUNDLE_NAME: "Devine-moi"
+        CERT_ID: "UV32QNP69H"  # "Apple Distribution: Pierre Gallaz", expires 2027-03-02
+    scripts:
+      - name: Register the bundle id and create the profile
+        script: |
+          set -e
+          lookup() { app-store-connect list-bundle-ids --bundle-id-identifier "$BUNDLE_ID" --platform IOS --strict-match-identifier 2>/dev/null | sed -n 's/^Id: //p' | head -1; }
+          BID=$(lookup)
+          if [ -z "$BID" ]; then
+            app-store-connect create-bundle-id --platform IOS --name "$BUNDLE_NAME" "$BUNDLE_ID"
+            BID=$(lookup)
+          fi
+          echo "$BUNDLE_ID → bundle id resource $BID"
+          test -n "$BID"
+          app-store-connect create-profile \
+            --certificate-ids "$CERT_ID" \
+            --type IOS_APP_STORE \
+            --name "$BUNDLE_ID app store" \
+            "$BID" || echo "(profile not created: it may already exist)"
+          echo "=== App Store profiles"; app-store-connect list-profiles --type IOS_APP_STORE || true

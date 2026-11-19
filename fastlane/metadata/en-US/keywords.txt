@@ -1,0 +1,1 @@
+french,word,daily,anagram,puzzle,français,mots,lettres,vocabulary,offline

@@ -1,0 +1,1 @@
+mots,lettres,anagramme,mot du jour,français,quotidien,devinette,vocabulaire,jeu,hors ligne

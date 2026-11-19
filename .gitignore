@@ -1,6 +1,5 @@
 node_modules/
 www/
-package-lock.json
 data/
 android/.gradle/
 android/app/build/
