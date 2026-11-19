@@ -40,6 +40,48 @@ workflows:
         auth: integration
         submit_to_testflight: false  # upload only
 
+  # ── iOS: the app in the simulator, one screenshot of what it shows at launch ──
+  # Proves that the web app starts inside the iOS WebView and sits clear of the notch.
+  ios-simulator-check:
+    name: iOS simulator check
+    max_build_duration: 30
+    instance_type: mac_mini_m2
+    environment:
+      node: 22
+      xcode: latest
+    scripts:
+      - name: Web app
+        script: |
+          set -e
+          npm ci
+          rm -rf www && mkdir -p www
+          cp index.html styles.css devine-ui.css brouille.css app.js devine-core.js devine-ui.js snd.js words-fr.js brouille-data.js brouille.js www/
+          cp -r audio fonts www/
+          npx cap sync ios
+      - name: Build for the simulator
+        script: |
+          set -e -o pipefail
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug \
+            -sdk iphonesimulator -derivedDataPath build/sim CODE_SIGNING_ALLOWED=NO build | tail -20
+      - name: Launch and take the screenshots
+        script: |
+          #!/bin/bash
+          set -e
+          TYPE=$(xcrun simctl list devicetypes | grep -F "iPhone 16 Pro Max" | head -1 | sed -E 's/.*\((com\.apple[^)]*)\).*/\1/')
+          UDID=$(xcrun simctl create check "$TYPE")
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl status_bar "$UDID" override --time "9:41" --batteryState charged --batteryLevel 100 --cellularBars 4 --wifiBars 3
+          sleep 120  # the "Ready for Apple Intelligence" banner shows up ~90 s after boot; let it pass
+          xcrun simctl install "$UDID" build/sim/Build/Products/Debug-iphonesimulator/App.app
+          xcrun simctl launch "$UDID" com.freedomfighter.devinemoi
+          mkdir -p screenshots
+          sleep 10; xcrun simctl io "$UDID" screenshot screenshots/01-launch.png
+          sleep 5;  xcrun simctl io "$UDID" screenshot screenshots/02-launch.png
+          xcrun simctl shutdown "$UDID"
+    artifacts:
+      - screenshots/*.png
+
   # One-off helper: registers the bundle id at Apple and creates its App Store
   # provisioning profile, signed with the distribution certificate Codemagic holds.
   # Then: Settings → Code signing identities → iOS provisioning profiles →
